@@ -16,10 +16,13 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-// Include the `app` and `utils` subprojects in the build.
-// If there are changes in only one of the projects, Gradle will rebuild only the one that has changed.
-// Learn more about structuring projects with Gradle - https://docs.gradle.org/8.7/userguide/multi_project_builds.html
-include(":app")
-include(":utils")
-
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "kotlin-template"
+
+file("modules").listFiles()?.forEach { file ->
+    if (file.isDirectory and !file.name.equals("build")) {
+        println("Include modules:${file.name}")
+        include(":modules:${file.name}")
+        project(":modules:${file.name}").name = "${rootProject.name}-${file.name}"
+    }
+}
