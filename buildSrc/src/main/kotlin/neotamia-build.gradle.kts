@@ -67,8 +67,8 @@ publishing {
             name = "neotamia${repository.capitalized()}"
             url = uri("https://repo.neotamia.re/${repository}")
             credentials(PasswordCredentials::class) {
-                username = (property("${name}Username") ?: System.getenv("MAVEN_USERNAME")) as String
-                password = (property("${name}Password") ?: System.getenv("MAVEN_PASSWORD")) as String
+                username = (findProperty("${name}Username") ?: System.getenv("MAVEN_USERNAME")) as String?
+                password = (findProperty("${name}Password") ?: System.getenv("MAVEN_PASSWORD")) as String?
             }
         }
     }
