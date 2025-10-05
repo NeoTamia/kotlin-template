@@ -4,7 +4,7 @@
 
 [versions]
 kotlin = "2.2.20"
-shadowPlugin = "9.0.0"
+shadowPlugin = "9.2.2"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
