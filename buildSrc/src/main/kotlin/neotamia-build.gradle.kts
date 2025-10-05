@@ -1,6 +1,5 @@
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
-import org.gradle.kotlin.dsl.artifacts
 
 plugins {
     kotlin("jvm")

@@ -5,10 +5,26 @@ on:
     branches:
       - main
       - dev
+    paths:
+      - '**.java'
+      - '**.kt'
+      - '**.gradle'
+      - '.github/workflows/build.yml'
+      - 'gradle/**'
+      - '**.gradle'
+      - '**.kts'
   pull_request:
     branches:
       - main
       - dev
+    paths:
+      - '**.java'
+      - '**.kt'
+      - '**.gradle'
+      - '.github/workflows/build.yml'
+      - 'gradle/**'
+      - '**.gradle'
+      - '**.kts'
   workflow_dispatch: {}
 
 jobs:
@@ -52,6 +68,7 @@ jobs:
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ steps.short_sha.outputs.GITHUB_SHA_SHORT }}-${{ github.event.number }}-${{ github.run_id }}
-          path: '**/build/libs/*.jar'
+          name: ${{ steps.short_sha.outputs.GITHUB_SHA_SHORT }}-${{ github.run_id }}
+          path: |
+            modules/**/build/libs/*.jar
           retention-days: 4
