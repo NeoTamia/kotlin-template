@@ -27,6 +27,10 @@ on:
       - '**.kts'
   workflow_dispatch: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/v')}}
+
 jobs:
   build:
     name: Build
@@ -37,7 +41,7 @@ jobs:
 
       - name: Set IS_DEFAULT_BRANCH env var
         run: |
-          if [ "${GITHUB_REF##*/}" = "${{ inputs.default-branch }}" ]; then
+          if [ "${GITHUB_REF##*/}" = "${{ github.event.repository.default_branch }}" ]; then
             echo "IS_DEFAULT_BRANCH=true" >> $GITHUB_ENV
           else
             echo "IS_DEFAULT_BRANCH=false" >> $GITHUB_ENV
