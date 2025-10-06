@@ -40,7 +40,9 @@ jobs:
         uses: gradle/actions/setup-gradle@v5
 
       - name: Publish Project
-        run: ./gradlew publish
+        run: |
+          chmod +x ./gradlew
+          ./gradlew publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
