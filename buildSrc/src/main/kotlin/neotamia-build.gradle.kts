@@ -90,9 +90,8 @@ publishing {
                     url = "https://github.com/NeoTamia/kotlin-template"
                 }
             }
+            // javadoc & sources jars already added with `components["java"]`
             from(components["java"])
-            artifact(tasks.javadoc)
-            artifact(tasks.kotlinSourcesJar)
         }
     }
 }
