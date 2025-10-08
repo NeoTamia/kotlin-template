@@ -8,7 +8,6 @@ on:
     paths:
       - '**.java'
       - '**.kt'
-      - '**.gradle'
       - '.github/workflows/build.yml'
       - 'gradle/**'
       - '**.gradle'
@@ -20,7 +19,6 @@ on:
     paths:
       - '**.java'
       - '**.kt'
-      - '**.gradle'
       - '.github/workflows/build.yml'
       - 'gradle/**'
       - '**.gradle'
@@ -52,8 +50,6 @@ jobs:
         with:
           java-version: 21
           distribution: zulu
-          server-id: github
-          settings-path: ${{ github.workspace }}
           cache: "gradle"
 
       - name: Setup Gradle
