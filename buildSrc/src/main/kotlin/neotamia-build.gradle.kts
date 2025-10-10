@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
@@ -55,8 +56,25 @@ tasks.withType<ShadowJar> {
     archiveClassifier.set("")
 }
 
+val copyJars = tasks.register<Copy>("copyJars") {
+    group = "publishing"
+    description = "Copies the built JAR to a local directory."
+    from(tasks.shadowJar)
+    enabled = false
+}
+
+project.afterEvaluate {
+    if (project.extra.has("localJarRepo")) {
+        copyJars.configure {
+            into(project.extra["localJarRepo"]!!)
+            enabled = true
+        }
+    }
+}
+
 tasks.build {
     dependsOn(tasks.shadowJar)
+    finalizedBy(copyJars)
 }
 
 tasks.named<Jar>("jar") {
