@@ -4,14 +4,14 @@
 
 [versions]
 kotlin = "2.2.20"
-shadowPlugin = "9.2.2"
+shadow = "9.2.2"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+shadowGradlePlugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
 
 [bundles]
 
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-shadow = { id = "com.gradleup.shadow", version.ref = "shadowPlugin" }

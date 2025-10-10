@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
 
@@ -5,6 +7,7 @@ plugins {
     kotlin("jvm")
     `maven-publish`
     `java-library`
+    id("com.gradleup.shadow")
 }
 
 group = "re.neotamia.kotlintemplate"
@@ -34,6 +37,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly("org.jetbrains.kotlin:kotlin-stdlib")
+
     testImplementation(kotlin("test"))
 }
 
@@ -44,6 +49,18 @@ java {
 
 kotlin {
     jvmToolchain(21)
+}
+
+tasks.withType<ShadowJar> {
+    archiveClassifier.set("")
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
+
+tasks.named<Jar>("jar") {
+    archiveClassifier.set("stripped")
 }
 
 tasks.withType<Test>().configureEach {
