@@ -70,5 +70,5 @@ jobs:
         with:
           name: ${{ steps.short_sha.outputs.GITHUB_SHA_SHORT }}-${{ github.run_id }}
           path: |
-            modules/**/build/libs/*.jar
+            build/repo/*.jar
           retention-days: 4

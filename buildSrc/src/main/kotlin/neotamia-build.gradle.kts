@@ -66,7 +66,7 @@ val copyJars = tasks.register<Copy>("copyJars") {
 project.afterEvaluate {
     if (project.extra.has("localJarRepo")) {
         copyJars.configure {
-            into(project.extra["localJarRepo"]!!)
+            into(rootProject.layout.buildDirectory.dir("repo"))
             enabled = true
         }
     }
