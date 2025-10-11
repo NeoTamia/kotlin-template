@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.assign
-
 plugins {
     id("neotamia-build")
 }
