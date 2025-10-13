@@ -7,6 +7,7 @@ plugins {
     `maven-publish`
     `java-library`
     id("com.gradleup.shadow")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 group = "re.neotamia.kotlintemplate"
