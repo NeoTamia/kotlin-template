@@ -51,6 +51,10 @@ kotlin {
     jvmToolchain(21)
 }
 
+ktlint {
+    outputToConsole.set(true)
+}
+
 tasks.withType<ShadowJar> {
     archiveClassifier.set("")
 }
