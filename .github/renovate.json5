@@ -1,43 +1,42 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    // https://docs.renovatebot.com/presets-config/#configrecommended
-    "config:recommended",
-    ":semanticCommitTypeAll(build)",
-    ":dependencyDashboard",
-    ":docker",
-    "docker:pinDigests"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':semanticCommitTypeAll(build)',
+    ':dependencyDashboard',
+    ':docker',
+    'docker:pinDigests',
   ],
-  "useBaseBranchConfig": "merge",
-  "baseBranches": [
-    "$default",
-    "dev",
-    "develop"
+  useBaseBranchConfig: 'merge',
+  baseBranchPatterns: [
+    '$default',
+    'dev',
+    'develop',
   ],
-  "major": {
-    "dependencyDashboardApproval": true
+  major: {
+    dependencyDashboardApproval: true,
   },
-  "dependencyDashboardApproval": false,
-  "dependencyDashboardLabels": [
-    "📌 dependencies"
+  dependencyDashboardApproval: false,
+  dependencyDashboardLabels: [
+    '📌 dependencies',
   ],
-  "labels": [
-    "📌 dependencies"
+  labels: [
+    '📌 dependencies',
   ],
-  "semanticCommits": "enabled",
-  "commitMessagePrefix": "{{{semanticPrefix}}} ⬆️",
-  "packageRules": [
+  semanticCommits: 'enabled',
+  commitMessagePrefix: '{{{semanticPrefix}}} ⬆️',
+  packageRules: [
     {
-      "matchUpdateTypes": [
-        "pin"
+      matchUpdateTypes: [
+        'pin',
       ],
-      "commitMessagePrefix": "{{{semanticPrefix}}} 📌"
+      commitMessagePrefix: '{{{semanticPrefix}}} 📌',
     },
     {
-      "matchUpdateTypes": [
-        "rollback"
+      matchUpdateTypes: [
+        'rollback',
       ],
-      "commitMessagePrefix": "{{{semanticPrefix}}} ⬇️"
-    }
-  ]
+      commitMessagePrefix: '{{{semanticPrefix}}} ⬇️',
+    },
+  ],
 }
