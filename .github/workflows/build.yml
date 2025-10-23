@@ -31,44 +31,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+    uses: NeoTamia/actions/jvm-build.yml@main
+    with:
+      default-branch: "${{ github.event.repository.default_branch }}"
 
-      - name: Set IS_DEFAULT_BRANCH env var
-        run: |
-          if [ "${GITHUB_REF##*/}" = "${{ github.event.repository.default_branch }}" ]; then
-            echo "IS_DEFAULT_BRANCH=true" >> $GITHUB_ENV
-          else
-            echo "IS_DEFAULT_BRANCH=false" >> $GITHUB_ENV
-          fi
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5
-        with:
-          java-version: 21
-          distribution: zulu
-          cache: "gradle"
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@4d9f0ba0025fe599b4ebab900eb7f3a1d93ef4c2 # v5
-
-      - name: Make the short sha
-        id: short_sha
-        run: |
-          echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_OUTPUT
-
-      - name: Build with Gradle
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build
-
-      - name: Upload JAR as artifact
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: ${{ steps.short_sha.outputs.GITHUB_SHA_SHORT }}-${{ github.run_id }}
-          path: |
-            build/repo/*.jar
-          retention-days: 4
