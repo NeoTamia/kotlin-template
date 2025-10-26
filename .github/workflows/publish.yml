@@ -15,4 +15,6 @@ jobs:
     name: Publish
     if: ${{ (github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch') && github.event_name != 'pull_request' }}
     uses: NeoTamia/actions/.github/workflows/jvm-publish.yml@main
+    with:
+      default-branch: "${{ github.event.repository.default_branch }}"
     secrets: inherit
