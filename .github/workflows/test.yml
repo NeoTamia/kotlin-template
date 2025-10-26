@@ -33,3 +33,5 @@ jobs:
   test:
     name: Test
     uses: NeoTamia/actions/.github/workflows/jvm-test.yml@main
+    permissions:
+      checks: write
