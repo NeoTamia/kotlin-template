@@ -14,3 +14,13 @@ jobs:
     name: Release Please
     uses: NeoTamia/actions/.github/workflows/release-please.yml@main
     secrets: inherit
+
+  gitflow-release:
+    name: Gitflow release
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    uses: NeoTamia/actions/.github/workflows/gitflow-release.yml@main
+    secrets: inherit
+    with:
+      release_version: ${{ needs.release-please.outputs.tag_name }}
+      version: ${{ needs.release-please.outputs.version }}
