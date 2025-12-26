@@ -31,8 +31,7 @@
       "prerelease": false,
       "pull-request-title-pattern": "chore(release): 🚀 Release ${version}",
       "extra-files": [
-        "build.gradle.kts",
-        "buildSrc/src/main/kotlin/neotamia-build.gradle.kts"
+        "gradle.properties"
       ],
       "release-type": "simple"
     }

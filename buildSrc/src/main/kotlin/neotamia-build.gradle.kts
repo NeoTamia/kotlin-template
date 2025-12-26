@@ -11,9 +11,7 @@ plugins {
 }
 
 group = "re.neotamia.kotlintemplate"
-// x-release-please-start-version
-version = "0.0.1"
-// x-release-please-end
+version = findProperty("version")!!
 
 repositories {
     mavenCentral()
