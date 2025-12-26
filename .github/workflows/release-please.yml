@@ -13,4 +13,6 @@ jobs:
   release-please:
     name: Release Please
     uses: NeoTamia/actions/.github/workflows/release-please.yml@main
-    secrets: inherit
+    secrets:
+      RELEASE_APP_ID: ${{ secrets.RELEASE_APP_ID }}
+      RELEASE_PRIVATE_KEY: ${{ secrets.RELEASE_PRIVATE_KEY }}
