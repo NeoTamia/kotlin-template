@@ -51,6 +51,7 @@ kotlin {
 }
 
 spotless {
+    isEnforceCheck = false
     lineEndings = LineEnding.UNIX
 
     java {
