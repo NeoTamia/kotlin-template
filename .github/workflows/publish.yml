@@ -9,6 +9,7 @@ on:
       release:
         description: 'Publish a new release'
         required: false
+        type: boolean
         default: false
 
 concurrency:
