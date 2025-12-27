@@ -22,5 +22,5 @@ jobs:
     uses: NeoTamia/actions/.github/workflows/gitflow-release.yml@main
     secrets: inherit
     with:
-      tag_name: ${{ needs.release-please.outputs.tag_name }}
+      tag-name: ${{ needs.release-please.outputs.tag_name }}
       version: ${{ needs.release-please.outputs.version }}
