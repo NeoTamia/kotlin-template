@@ -1,4 +1,4 @@
-name: Linting CI
+name: Lint Action
 
 on:
   push:
