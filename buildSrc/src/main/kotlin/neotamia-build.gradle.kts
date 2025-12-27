@@ -1,3 +1,4 @@
+import com.diffplug.spotless.LineEnding
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
@@ -7,7 +8,7 @@ plugins {
     `maven-publish`
     `java-library`
     id("com.gradleup.shadow")
-    id("org.jlleitschuh.gradle.ktlint")
+    id("com.diffplug.spotless")
 }
 
 group = "re.neotamia.kotlintemplate"
@@ -49,8 +50,28 @@ kotlin {
     jvmToolchain(21)
 }
 
-ktlint {
-    outputToConsole.set(true)
+spotless {
+    lineEndings = LineEnding.UNIX
+
+    java {
+        toggleOffOn()
+
+        removeUnusedImports()
+        // Cleanthat will refactor your code, but it may break your style: apply it before your formatter
+        cleanthat()
+        formatAnnotations()
+    }
+
+    kotlin {
+        toggleOffOn()
+        ktlint()
+    }
+
+    kotlinGradle {
+        toggleOffOn()
+        target("*.gradle.kts")
+        ktlint()
+    }
 }
 
 tasks.withType<ShadowJar> {
