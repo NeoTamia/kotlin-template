@@ -35,3 +35,4 @@ jobs:
     uses: NeoTamia/actions/.github/workflows/jvm-build.yml@main
     with:
       default-branch: "${{ github.event.repository.default_branch }}"
+      build-command: './gradlew build "-Pspotless.enforceCheck=false"'

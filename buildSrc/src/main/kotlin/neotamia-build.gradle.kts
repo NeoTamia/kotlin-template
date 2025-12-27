@@ -51,7 +51,7 @@ kotlin {
 }
 
 spotless {
-    isEnforceCheck = false
+    isEnforceCheck = findProperty("spotless.enforceCheck")?.toString()?.toBoolean() ?: true
     lineEndings = LineEnding.UNIX
 
     java {
