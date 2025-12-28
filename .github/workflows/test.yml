@@ -35,3 +35,4 @@ jobs:
     uses: NeoTamia/actions/.github/workflows/jvm-test.yml@main
     permissions:
       checks: write
+      pull-requests: write
