@@ -50,6 +50,7 @@ jobs:
                   sed -i "s/kotlin-template/$REPO_NAME/g" "$f"
                   sed -i "s/KotlinTemplate/$CAMEL_NAME/g" "$f"
                   sed -i "s/Kotlin Template/$REPO_NAME/g" "$f"
+                  sed -i "s/neotamia-build/$LOW_NAME-build/g" "$f"
               fi
           done < files.txt
           rm files.txt
@@ -71,6 +72,9 @@ jobs:
               # Clean up old empty directories
               rmdir "$(dirname "$dir")" 2>/dev/null || true
           done
+          
+          # 4. Rename neotamia-build.gradle.kts
+          mv buildSrc/src/main/kotlin/neotamia-build.gradle.kts "buildSrc/src/main/kotlin/$LOW_NAME-build.gradle.kts"
 
       - name: Commit changes
         if: steps.check.outputs.initialized == 'false'
