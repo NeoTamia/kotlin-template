@@ -5,6 +5,7 @@ import org.gradle.internal.extensions.stdlib.capitalized
 
 plugins {
     kotlin("jvm")
+    idea
     `maven-publish`
     `java-library`
     id("com.gradleup.shadow")
