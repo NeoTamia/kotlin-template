@@ -33,3 +33,6 @@ jobs:
   lint:
     name: Linting
     uses: NeoTamia/actions/.github/workflows/jvm-lint.yml@main
+    permissions:
+      pull-requests: write
+      checks: write
