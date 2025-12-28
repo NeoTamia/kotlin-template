@@ -14,6 +14,9 @@ jobs:
     name: Release Please
     uses: NeoTamia/actions/.github/workflows/release-please.yml@main
     secrets: inherit
+    permissions:
+      contents: write
+      pull-requests: write
 
   gitflow-release:
     name: Gitflow release
