@@ -133,6 +133,8 @@ publishing {
 
     publications {
         create<MavenPublication>("mavenJava") {
+            val kebabName = project.name.replace(Regex("(?<=[a-z])(?=[A-Z])"), "-").lowercase()
+            artifactId = kebabName
             pom {
                 name = "KotlinTemplate ${project.name}"
                 description = "Kotlin Template, ${project.name} module."
