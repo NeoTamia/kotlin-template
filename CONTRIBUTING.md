@@ -36,9 +36,10 @@ This document describes our development process. Following these guidelines show
     6. [Testing](#testing)
     7. [Style Guidelines](#style-guidelines)
        1. [Code Formatting Rules](#code-formatting)
-       2. [Branch Names](#branch-names)
-       3. [Whitespace Cleanup](#whitespace-cleanup)
-       4. [Git Commit Guidelines](#git-commit-guidelines)
+       2. [AI Agent Guidelines](#ai-agent-guidelines)
+       3. [Branch Names](#branch-names)
+       4. [Whitespace Cleanup](#whitespace-cleanup)
+       5. [Git Commit Guidelines](#git-commit-guidelines)
 7. [Pull Request Guidelines](#pull-request-process)
     1. [Addressing Feedback](#addressing-feedback)
 
@@ -150,12 +151,16 @@ Pick an unassigned issue that you think you can accomplish and add a comment tha
 
 ### Development Process
 
-This project follows the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model of product development:
+This project follows the [git flow](http://nvie.com/posts/a-successful-git-branching-model/) branching model of product development.
+
+> **Note**
+> While we follow git flow for branching, releases and changelog generation are automated using **release-please**.
+
 - Main: **main** (Latest stable release)
 - Dev: **dev** (Latest development version)
 - Feature: **feature/feature-name** (Used to develop a new feature)
 - HotFix: **hotfix/fix-name** (Used to fix an issue from the main branch)
-- Release: **release/release-name** (Used for a new release)
+- Release: **release/release-name** (Used for a new release, managed by release-please)
 - BugFix: **bugfix/fix-name** (Used to fix an issue)
 - Experimental: **experimental/exp-name** (Should be used for testing something)
 
@@ -175,8 +180,8 @@ More information about the git flow can be found [here](https://www.atlassian.co
   - Used to fix an issue from the main branch
   - When the fix is ready, merge it into the main branch and the dev branch
 - **release/release-name**:
-  - Used to prepare a new release version from the dev branch
-  - When the release is ready, merge it into the main branch
+  - Used to prepare a new release version from the dev branch.
+  - Releases are typically automated via **release-please**. When a release PR is merged into the main branch, a new release is created.
 - **bugfix/fix-name**:
   - Used to fix an issue from the dev branch
   - When the fix is ready, merge it into the dev branch
@@ -273,11 +278,15 @@ git merge experimental/exp-name
 
 ### Building the Project
 
+The project uses a multi-module structure. All modules are located in the `modules/` directory.
+
 If you want to build the project, clone the **main** or **dev** branch
 
 ```bash
 ./gradlew build
 ```
+
+The artifacts will be available in the `build/libs` and `modules/*/build/libs` directories.
 
 ### Testing
 
@@ -293,13 +302,17 @@ If your pull request reduces our test coverage because it lacks tests then it wi
 
 #### Code Formatting Rules
 
-Please follow the **Kotlin Official Convention** and **ktlint**. </br>
+Please follow the **Kotlin Official Convention** and **Spotless** (which uses **ktlint**). </br>
 You can run it with: 
 
 ```bash
-./gradlew ktlintCheck # To run the linter
-./gradlew ktlintFormat # To run the linter and fix the errors
+./gradlew spotlessCheck # To run the linter
+./gradlew spotlessApply # To run the linter and fix the errors
 ```
+
+#### AI Agent Guidelines
+
+If you are an AI agent working on this project, please refer to the [AGENTS.md](AGENTS.md) file for specific rules and technical context.
 
 #### Branch Names
 
@@ -308,7 +321,7 @@ As said in [Development Process](#development-process), you should use the follo
 - Dev: **dev** (Latest development version)
 - Feature: **feature/feature-name** (Used to develop a new feature)
 - HotFix: **hotfix/fix-name** (Used to fix an issue from the main branch)
-- Release: **release/release-name** (Used for a new release)
+- Release: **release/release-name** (Used for a new release, managed by release-please)
 - BugFix: **bugfix/fix-name** (Used to fix an issue)
 - Experimental: **experimental/exp-name** (Should be used for testing something)
 
@@ -331,6 +344,8 @@ If your request is unreadable due to whitespace changes, it will be rejected.
 #### Git Commit Guidelines
 
 You should follow [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/#summary). </br>
+This project uses **release-please** to automate releases and changelog generation. Following conventional commits is mandatory for the release process to work correctly.
+
 Each commit message consists of a header, a body and a footer. The header has a special format that includes a type, a scope and a subject:
 
 ```md
