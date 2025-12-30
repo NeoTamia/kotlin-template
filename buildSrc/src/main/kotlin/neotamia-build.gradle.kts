@@ -117,42 +117,48 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-publishing {
-    repositories {
-        mavenLocal()
-        maven {
-            var repository = System.getProperty("repository.name", "snapshots")
-            name = "neotamia${repository.capitalized()}"
-            url = uri("https://repo.neotamia.re/${repository}")
-            credentials(PasswordCredentials::class) {
-                username = (findProperty("${name}Username") ?: System.getenv("MAVEN_USERNAME")) as String?
-                password = (findProperty("${name}Password") ?: System.getenv("MAVEN_PASSWORD")) as String?
-            }
-        }
-    }
-
-    publications {
-        create<MavenPublication>("mavenJava") {
-            val kebabName = project.name.replace(Regex("(?<=[a-z])(?=[A-Z])"), "-").lowercase()
-            artifactId = kebabName
-            pom {
-                name = "KotlinTemplate ${project.name}"
-                description = "Kotlin Template, ${project.name} module."
-                url = "https://github.com/NeoTamia/kotlin-template"
-                developers {
-                    developer {
-                        id = "NeoTamia"
-                        url = "https://github.com/NeoTamia"
+project.afterEvaluate {
+    if (project.extra.has("publish")) {
+        publishing {
+            repositories {
+                mavenLocal()
+                maven {
+                    var repository = System.getProperty("repository.name", "snapshots")
+                    name = "neotamia${repository.capitalized()}"
+                    url = uri("https://repo.neotamia.re/${repository}")
+                    credentials(PasswordCredentials::class) {
+                        username = (findProperty("${name}Username") ?: System.getenv("MAVEN_USERNAME")) as String?
+                        password = (findProperty("${name}Password") ?: System.getenv("MAVEN_PASSWORD")) as String?
                     }
                 }
-                scm {
-                    connection = "scm:git:https://github.com/NeoTamia/kotlin-template.git"
-                    developerConnection = "scm:git:ssh://git@github.com:NeoTamia/kotlin-template.git"
-                    url = "https://github.com/NeoTamia/kotlin-template"
+            }
+        }
+
+        publishing {
+            publications {
+                create<MavenPublication>("mavenJava") {
+                    val kebabName = project.name.replace(Regex("(?<=[a-z])(?=[A-Z])"), "-").lowercase()
+                    artifactId = kebabName
+                    pom {
+                        name = "KotlinTemplate ${project.name}"
+                        description = "Kotlin Template, ${project.name} module."
+                        url = "https://github.com/NeoTamia/kotlin-template"
+                        developers {
+                            developer {
+                                id = "NeoTamia"
+                                url = "https://github.com/NeoTamia"
+                            }
+                        }
+                        scm {
+                            connection = "scm:git:https://github.com/NeoTamia/kotlin-template.git"
+                            developerConnection = "scm:git:ssh://git@github.com:NeoTamia/kotlin-template.git"
+                            url = "https://github.com/NeoTamia/kotlin-template"
+                        }
+                    }
+                    // javadoc & sources jars already added with `components["java"]`
+                    from(components["java"])
                 }
             }
-            // javadoc & sources jars already added with `components["java"]`
-            from(components["java"])
         }
     }
 }

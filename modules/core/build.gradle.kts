@@ -3,3 +3,4 @@ plugins {
 }
 
 extra["localJarRepo"] = true
+//extra["publish"] = true
