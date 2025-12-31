@@ -288,6 +288,40 @@ If you want to build the project, clone the **main** or **dev** branch
 
 The artifacts will be available in the `build/libs` and `modules/*/build/libs` directories.
 
+#### Local JAR Repository
+
+The project allows modules to opt-in to copying their built JARs to a common local repository (at the root `build/repo` directory).
+This is useful for testing modules in other projects locally or to export built artifacts without publishing them to a remote repository.
+
+To enable this for a module, add the following to its `build.gradle.kts`:
+
+```kotlin
+extra["localJarRepo"] = true
+```
+
+When enabled, running `./gradlew build` will automatically copy the module's JAR to the root `build/repo` directory.
+
+### Publishing
+
+The project supports publishing to a Maven repository. To enable publishing for a module, add the following to its `build.gradle.kts`:
+
+```kotlin
+extra["publish"] = true
+```
+
+When enabled, you can run the `publish` task:
+
+```bash
+./gradlew publish -Drepository.name=snapshots
+```
+
+#### Publishing Configuration
+
+- **`repository.name`**: (Optional) The name of the target repository (e.g., `releases`, `snapshots`, `private`). Defaults to `snapshots`.
+- **Credentials**: The publishing task requires credentials for the `neotamia` repository. These can be provided via:
+    - Gradle properties: `neotamia<RepositoryName>Username` and `neotamia<RepositoryName>Password` (e.g., `neotamiaSnapshotsUsername`).
+    - Environment variables: `MAVEN_USERNAME` and `MAVEN_PASSWORD`.
+
 ### Testing
 
 If you add code you need to add tests! We’ve learned the hard way that code without tests is undependable.
@@ -308,6 +342,11 @@ You can run it with:
 ```bash
 ./gradlew spotlessCheck # To run the linter
 ./gradlew spotlessApply # To run the linter and fix the errors
+```
+
+You can also skip the enforce check of spotless (not recommended) with:
+```bash
+./gradlew build -Pspotless.enforceCheck=false
 ```
 
 #### AI Agent Guidelines
