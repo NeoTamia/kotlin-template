@@ -6,6 +6,7 @@ import org.gradle.internal.extensions.stdlib.capitalized
 plugins {
     kotlin("jvm")
     idea
+    jacoco
     `maven-publish`
     `java-library`
     id("com.gradleup.shadow")
@@ -117,6 +118,15 @@ tasks.withType<Test>().configureEach {
             TestLogEvent.PASSED,
             TestLogEvent.SKIPPED
         )
+    }
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 
