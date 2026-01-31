@@ -1,5 +1,6 @@
 import com.diffplug.spotless.LineEnding
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
 
@@ -83,6 +84,10 @@ spotless {
         ktlint()
     }
 }
+
+//tasks.withType<ShadowJar> {
+//    archiveClassifier.set("")
+//}
 
 val copyJars = tasks.register<Copy>("copyJars") {
     group = "publishing"
