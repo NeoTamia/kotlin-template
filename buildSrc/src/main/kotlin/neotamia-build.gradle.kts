@@ -84,10 +84,6 @@ spotless {
     }
 }
 
-tasks.withType<ShadowJar> {
-    archiveClassifier.set("")
-}
-
 val copyJars = tasks.register<Copy>("copyJars") {
     group = "publishing"
     description = "Copies the built JAR to a local directory."
@@ -109,8 +105,9 @@ tasks.build {
     finalizedBy(copyJars)
 }
 
-tasks.named<Jar>("jar") {
-    archiveClassifier.set("stripped")
+tasks.withType<Jar> {
+    val moduleName = project.path.removePrefix(":modules:").replace(":", "-")
+    archiveBaseName.set("kotlin-template-$moduleName")
 }
 
 tasks.withType<Test>().configureEach {
