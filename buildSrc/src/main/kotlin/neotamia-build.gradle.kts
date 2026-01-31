@@ -13,7 +13,11 @@ plugins {
     id("com.diffplug.spotless")
 }
 
-group = "re.neotamia.kotlintemplate"
+val baseGroup = "re.mineraiders.kotlintemplate"
+group = when {
+    project.path.startsWith(":modules:core") -> "$baseGroup.core"
+    else -> baseGroup
+}
 version = findProperty("version")!!
 
 repositories {
