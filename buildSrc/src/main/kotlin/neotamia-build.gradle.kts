@@ -110,10 +110,15 @@ tasks.build {
     finalizedBy(copyJars)
 }
 
-tasks.withType<Jar> {
-    val moduleName = project.path.removePrefix(":modules:").replace(":", "-")
-    archiveBaseName.set("kotlin-template-$moduleName")
+tasks.withType<Jar>().configureEach {
+    val moduleName = project.path.removePrefix(":modules").replace(":", "-")
+    val baseName = if (moduleName == "-" || moduleName.isEmpty()) "kotlin-template" else "kotlin-template$moduleName"
+    archiveBaseName.set(baseName)
 }
+
+//tasks.named<Jar>("jar") {
+//    archiveClassifier.set("stripped")
+//}
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
