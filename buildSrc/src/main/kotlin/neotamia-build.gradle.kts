@@ -21,6 +21,12 @@ group = when {
 }
 version = findProperty("version")!!
 
+val moduleName = project.path.removePrefix(":modules").replace(":", "-")
+val baseName = if (moduleName == "-" || moduleName.isEmpty()) "kotlin-template" else "kotlin-template$moduleName"
+base {
+    archivesName.set(baseName)
+}
+
 repositories {
     mavenCentral()
     mavenLocal()
@@ -110,12 +116,6 @@ tasks.build {
     finalizedBy(copyJars)
 }
 
-tasks.withType<Jar>().configureEach {
-    val moduleName = project.path.removePrefix(":modules").replace(":", "-")
-    val baseName = if (moduleName == "-" || moduleName.isEmpty()) "kotlin-template" else "kotlin-template$moduleName"
-    archiveBaseName.set(baseName)
-}
-
 //tasks.named<Jar>("jar") {
 //    archiveClassifier.set("stripped")
 //}
@@ -161,7 +161,7 @@ project.afterEvaluate {
         publishing {
             publications {
                 create<MavenPublication>("mavenJava") {
-                    val kebabName = project.name.replace(Regex("(?<=[a-z])(?=[A-Z])"), "-").lowercase()
+                    val kebabName = baseName.replace(Regex("(?<=[a-z])(?=[A-Z])"), "-").lowercase()
                     artifactId = kebabName
                     pom {
                         name = "KotlinTemplate ${project.name}"
