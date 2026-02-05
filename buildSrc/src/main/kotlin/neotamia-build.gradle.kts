@@ -14,7 +14,7 @@ plugins {
     id("com.diffplug.spotless")
 }
 
-val baseGroup = "re.mineraiders.kotlintemplate"
+val baseGroup = "re.neotamia.kotlintemplate"
 group = when {
     project.path.startsWith(":modules:core") -> "$baseGroup.core"
     else -> baseGroup
