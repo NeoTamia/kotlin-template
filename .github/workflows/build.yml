@@ -39,7 +39,7 @@ concurrency:
 jobs:
   build-and-publish:
     name: Build and Publish
-    uses: NeoTamia/actions/.github/workflows/jvm-build-and-publish.yml@main
+    uses: NeoTamia/actions/.github/workflows/jvm-build-and-publish.yml@e9f391cf23f73a5cab7fc8db5a3b28a6af0ae09e # main
     with:
       release: ${{ startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release == 'true' }}
     secrets: inherit

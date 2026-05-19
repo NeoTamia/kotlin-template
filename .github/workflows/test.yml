@@ -32,7 +32,7 @@ concurrency:
 jobs:
   test:
     name: Test
-    uses: NeoTamia/actions/.github/workflows/jvm-test.yml@main
+    uses: NeoTamia/actions/.github/workflows/jvm-test.yml@e9f391cf23f73a5cab7fc8db5a3b28a6af0ae09e # main
     permissions:
       checks: write
       pull-requests: write
