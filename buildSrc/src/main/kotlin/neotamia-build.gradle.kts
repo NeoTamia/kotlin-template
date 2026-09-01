@@ -30,21 +30,17 @@ base {
 repositories {
     mavenCentral()
     mavenLocal()
-    maven {
+    maven("https://jitpack.io") {
         name = "jitpack"
-        url = uri("https://jitpack.io")
     }
-    maven {
+    maven("https://repo.neotamia.re/releases") {
         name = "neotamiaReleases"
-        url = uri("https://repo.neotamia.re/releases")
     }
-    maven {
+    maven("https://repo.neotamia.re/snapshots") {
         name = "neotamiaSnapshots"
-        url = uri("https://repo.neotamia.re/snapshots")
     }
-    maven {
+    maven("https://repo.neotamia.re/private") {
         name = "neotamiaPrivate"
-        url = uri("https://repo.neotamia.re/private")
     }
 }
 
@@ -91,9 +87,9 @@ spotless {
     }
 }
 
-//tasks.withType<ShadowJar> {
-//    archiveClassifier.set("")
-//}
+// tasks.withType<ShadowJar> {
+//     archiveClassifier.set("")
+// }
 
 val copyJars = tasks.register<Copy>("copyJars") {
     group = "publishing"
@@ -116,9 +112,9 @@ tasks.build {
     finalizedBy(copyJars)
 }
 
-//tasks.named<Jar>("jar") {
-//    archiveClassifier.set("stripped")
-//}
+// tasks.named<Jar>("jar") {
+//     archiveClassifier.set("stripped")
+// }
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
@@ -149,7 +145,7 @@ project.afterEvaluate {
                 maven {
                     var repository = System.getProperty("repository.name", "snapshots")
                     name = "neotamia${repository.capitalized()}"
-                    url = uri("https://repo.neotamia.re/${repository}")
+                    url = uri("https://repo.neotamia.re/$repository")
                     credentials(PasswordCredentials::class) {
                         username = (findProperty("${name}Username") ?: System.getenv("MAVEN_USERNAME")) as String?
                         password = (findProperty("${name}Password") ?: System.getenv("MAVEN_PASSWORD")) as String?
