@@ -1,15 +1,10 @@
-# Files copied from this template into repositories created from it.
-# Nested templates (for example plugin-template) keep extra keys/files;
-# after their sync PR is merged they fan out to their own generated repos.
+# Copied into generated repos. Each repo pulls this template with GITHUB_TOKEN
+# and opens a PR on itself. Nested templates keep extra keys via three_way.
 
-discover: true
-skip_archived: true
+# Parent to pull from. Empty = GitHub templateRepository of this repo.
+source:
+source_ref:
 prefer_branch: dev
-
-# Extra downstream repos that GitHub does not mark as generated from this template.
-include_repos:
-# Repos to skip even if they were generated from this template.
-exclude_repos:
 
 identity:
   extra:
@@ -21,7 +16,6 @@ identity:
     - settings.gradle.kts
     - buildSrc/src/main/kotlin/*-build.gradle.kts
 
-# Identical infrastructure: rewritten with the dest project identity, then copied.
 overwrite:
   - .editorconfig
   - .github/renovate.json5
@@ -39,11 +33,9 @@ overwrite:
   - CODE_OF_CONDUCT.md
   - CONTRIBUTING.md
 
-# Version catalog: template versions/libraries win, dest-only keys are kept.
 merge_toml:
   - gradle/libs.versions.toml
 
-# Customized files: apply the template delta since the last sync.
 three_way:
   - buildSrc/src/main/kotlin/*-build.gradle.kts
   - gradle.properties
