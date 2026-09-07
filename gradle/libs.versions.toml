@@ -6,11 +6,13 @@
 kotlin = "2.4.10"
 shadow = "9.6.1"
 spotless = "8.10.1"
+versionsChecker = "0.53.0"
 
 [libraries]
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 shadowGradlePlugin = { module = "com.gradleup.shadow:shadow-gradle-plugin", version.ref = "shadow" }
 spotlessGradlePlugin = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "spotless" }
+versionCheckerGradlePlugin = { module = "com.github.ben-manes.versions:com.github.ben-manes.versions.gradle.plugin", version.ref = "versionsChecker" }
 
 [bundles]
 

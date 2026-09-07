@@ -12,6 +12,7 @@ plugins {
     `java-library`
     id("com.gradleup.shadow")
     id("com.diffplug.spotless")
+    id("com.github.ben-manes.versions")
 }
 
 val baseGroup = "re.neotamia.kotlintemplate"
