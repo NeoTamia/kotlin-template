@@ -1,8 +1,18 @@
 import com.diffplug.spotless.LineEnding
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.build
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.compileOnly
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.jacocoTestReport
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.publishing
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.spotless
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.test
+import gradle.kotlin.dsl.accessors._ccf202bea0aecb95d06f508c99112a05.testImplementation
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.internal.extensions.stdlib.capitalized
+import org.gradle.internal.impldep.org.jsoup.nodes.Document
+import org.jetbrains.kotlin.gradle.internal.backend.common.serialization.metadata.DynamicTypeDeserializer.id
+import org.jetbrains.kotlin.gradle.internal.builtins.StandardNames.FqNames.target
 
 plugins {
     kotlin("jvm")
@@ -12,7 +22,7 @@ plugins {
     `java-library`
     id("com.gradleup.shadow")
     id("com.diffplug.spotless")
-    id("com.github.ben-manes.versions")
+    id("io.github.ben-manes.versions")
 }
 
 val baseGroup = "re.neotamia.kotlintemplate"
