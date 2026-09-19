@@ -7,8 +7,9 @@ source_ref:
 prefer_branch: dev
 
 identity:
+  prefix: NT
   extra:
-    re.neotamia.kotlintemplate: re.{owner_slug}.{slug}
+    re.neotamia.kotlintemplate: re.{owner_slug}.{slug_no_prefix}
     neotamia-build: "{slug}-build"
   owner_files:
     - README.md

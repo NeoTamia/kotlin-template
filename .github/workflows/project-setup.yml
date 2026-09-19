@@ -36,19 +36,23 @@ jobs:
           # Sanitize names
           LOW_OWNER=$(echo "$REPO_OWNER" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
           LOW_NAME=$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
+          # Package segment: strip the organization prefix (NTConfig -> Config, NT_Config -> Config)
+          SHORT_NAME=$(printf '%s' "$REPO_NAME" | sed -E 's/^[Nn][Tt]([A-Z])/\1/; s/^[Nn][Tt][-_]//')
+          [ -n "$SHORT_NAME" ] || SHORT_NAME="$REPO_NAME"
+          PKG_NAME=$(printf '%s' "$SHORT_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]//g')
            # camelCase: my-repo -> myRepo
           CAMEL_NAME=$(echo "$REPO_NAME" | sed -r 's/(^|[_-])([a-z])/\U\2/g' | sed 's/[^a-zA-Z0-9]//g' | sed 's/^./\l&/')
           # PascalCase: my-repo -> MyRepo
           PASCAL_NAME=$(echo "$REPO_NAME" | sed -r 's/(^|[_-])([a-z])/\U\2/g' | sed 's/[^a-zA-Z0-9]//g')
           
           echo "Setting up project for $REPO_OWNER/$REPO_NAME"
-          echo "Package: re.$LOW_OWNER.$LOW_NAME"
+          echo "Package: re.$LOW_OWNER.$PKG_NAME"
           
           # 1. Replace strings in all files
           find . -type f -not -path '*/.*' -not -name 'project-setup.yml' > files.txt
           while read -r f; do
               if grep -qI . "$f"; then
-                  sed -i "s/re\.neotamia\.kotlintemplate/re.$LOW_OWNER.$LOW_NAME/g" "$f"
+                  sed -i "s/re\.neotamia\.kotlintemplate/re.$LOW_OWNER.$PKG_NAME/g" "$f"
                   sed -i "s/kotlin-template/$REPO_NAME/g" "$f"
                   sed -i "s/KotlinTemplate/$PASCAL_NAME/g" "$f"
                   sed -i "s/kotlinTemplate/$CAMEL_NAME/g" "$f"
@@ -71,7 +75,7 @@ jobs:
               base_path=$(echo "$dir" | sed 's|/re/neotamia/kotlintemplate$||')
               new_parent="$base_path/re/$LOW_OWNER"
               mkdir -p "$new_parent"
-              mv "$dir" "$new_parent/$LOW_NAME"
+              mv "$dir" "$new_parent/$PKG_NAME"
               # Clean up old empty directories
               rmdir "$(dirname "$dir")" 2>/dev/null || true
           done
