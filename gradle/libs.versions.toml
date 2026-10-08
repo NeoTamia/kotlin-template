@@ -5,7 +5,7 @@
 [versions]
 kotlin = "2.4.20"
 shadow = "9.6.1"
-spotless = "8.10.2"
+spotless = "8.10.4"
 versionsChecker = "0.62.0"
 
 [libraries]
